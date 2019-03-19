@@ -30,7 +30,7 @@ class Ner:
         output_model_file = os.path.join(model_dir, WEIGHTS_NAME)
         config = BertConfig(output_config_file)
         model = BertForTokenClassification(config, num_labels=model_config["num_labels"])
-        model.load_state_dict(torch.load(output_model_file))
+        model.load_state_dict(torch.load(output_model_file, map_location='cpu'))
         tokenizer = BertTokenizer.from_pretrained(model_config["bert_model"],do_lower_case=False)
         return model, tokenizer, model_config
 
