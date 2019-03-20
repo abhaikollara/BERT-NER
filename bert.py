@@ -60,15 +60,15 @@ class Ner:
         tokens.insert(0, "[CLS]")
         # insert "[SEP]"
         tokens.append("[SEP]")
-        segment_ids = []
-        for i in range(len(tokens)):
-            segment_ids.append(0)
+        segment_ids = [0] * len(tokens)
         input_ids = self.tokenizer.convert_tokens_to_ids(tokens)
         input_mask = [1] * len(input_ids)
+        # Padding
         while len(input_ids) < self.max_seq_length:
             input_ids.append(0)
             input_mask.append(0)
             segment_ids.append(0)
+
         return input_ids, input_mask, segment_ids, valid_positions
 
     def predict(self, text: str):
